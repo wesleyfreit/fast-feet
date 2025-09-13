@@ -6,12 +6,12 @@ import { Administrator } from '../../enterprise/entities/administrator';
 import { DeliveryPerson } from '../../enterprise/entities/delivery-person';
 import {
   DeliveryPeopleRepository,
-  FilterParams,
+  DeliveryPersonFilterParams,
 } from '../repositories/delivery-people-repository';
 
 interface FetchDeliveryPeopleUseCaseRequest {
   pagination: PaginationParams;
-  filter?: FilterParams;
+  filter?: DeliveryPersonFilterParams;
 }
 
 type FetchDeliveryPeopleUseCaseResponse = Either<

@@ -1,6 +1,9 @@
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { PaginationResult } from '@/core/repositories/pagination-result';
-import { DeliveryPeopleRepository } from '@/domain/recipient-order-delivery/application/repositories/delivery-people-repository';
+import {
+  DeliveryPeopleRepository,
+  DeliveryPersonFilterParams,
+} from '@/domain/recipient-order-delivery/application/repositories/delivery-people-repository';
 import { Administrator } from '@/domain/recipient-order-delivery/enterprise/entities/administrator';
 import { DeliveryPerson } from '@/domain/recipient-order-delivery/enterprise/entities/delivery-person';
 
@@ -13,7 +16,7 @@ export class InMemoryDeliveryPeopleRepository implements DeliveryPeopleRepositor
 
   async findMany(
     pagination: PaginationParams,
-    filter?: { isAdmin?: boolean },
+    filter?: DeliveryPersonFilterParams,
   ): Promise<PaginationResult<DeliveryPerson | Administrator, 'deliveryPeople'>> {
     const { page, perPage } = pagination;
 

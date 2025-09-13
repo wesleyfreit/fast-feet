@@ -1,19 +1,19 @@
 import { faker } from '@faker-js/faker';
 import { InMemoryRecipientPeopleRepository } from 'test/repositories/in-memory-recipient-people-repository';
-import { CreateRecipientPersonUseCase } from './create-recipient-person';
+import { RegisterRecipientPersonUseCase } from './register-recipient-person';
 
 let recipientPeopleRepository: InMemoryRecipientPeopleRepository;
 
-let sut: CreateRecipientPersonUseCase;
+let sut: RegisterRecipientPersonUseCase;
 
-describe('Create Recipient Person Use Case', () => {
+describe('Register Recipient Person Use Case', () => {
   beforeEach(() => {
     recipientPeopleRepository = new InMemoryRecipientPeopleRepository();
 
-    sut = new CreateRecipientPersonUseCase(recipientPeopleRepository);
+    sut = new RegisterRecipientPersonUseCase(recipientPeopleRepository);
   });
 
-  it('should be able to create a recipient person of orders', async () => {
+  it('should be able to register a recipient person of orders', async () => {
     const result = await sut.execute({
       name: faker.person.fullName(),
       cpf: faker.string.uuid(),
