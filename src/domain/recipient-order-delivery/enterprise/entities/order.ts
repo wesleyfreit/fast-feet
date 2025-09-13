@@ -21,6 +21,7 @@ export interface OrderProps {
   status: OrderStatus;
   photoProof?: string | null;
   createdAt: Date;
+  updatedAt?: Date | null;
 }
 
 export class Order extends AggregateRoot<OrderProps> {
@@ -52,6 +53,8 @@ export class Order extends AggregateRoot<OrderProps> {
     this.props.deliveryPersonId = deliveryPersonId;
     this.props.status = OrderStatus.PICKED_UP;
 
+    this.touch();
+
     this.addDomainEvent(new OrderPickedUpEvent(this));
   }
 
@@ -63,6 +66,8 @@ export class Order extends AggregateRoot<OrderProps> {
     this.props.photoProof = photoUrl;
     this.props.status = OrderStatus.DELIVERED;
 
+    this.touch();
+
     this.addDomainEvent(new OrderDeliveredEvent(this));
   }
 
@@ -73,11 +78,21 @@ export class Order extends AggregateRoot<OrderProps> {
 
     this.props.status = OrderStatus.RETURNED;
 
+    this.touch();
+
     this.addDomainEvent(new OrderReturnedEvent(this));
   }
 
   get createdAt() {
     return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
   }
 
   static create(

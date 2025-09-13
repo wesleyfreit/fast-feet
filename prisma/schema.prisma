@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum DeliveryStatus {
+  WAITING_PICK_UP
+  PICKED_UP
+  DELIVERED
+  RETURNED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  cpf       String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deliveries Delivery[]
+}
+
+model Recipient {
+  id        String   @id @default(cuid())
+  name      String
+  cpf       String   @unique
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deliveries Delivery[]
+}
+
+model Delivery {
+  id            String         @id @default(cuid())
+  status        DeliveryStatus @default(WAITING_PICK_UP)
+  street        String
+  neighborhood  String
+  number        String
+  city          String
+  state         String
+  zipCode       String
+  complement    String?
+  recipientId   String
+  deliveryManId String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  recipient Recipient @relation(fields: [recipientId], references: [id])
+  user      User?     @relation(fields: [deliveryManId], references: [id])
+}

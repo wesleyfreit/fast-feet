@@ -7,6 +7,7 @@ export interface RecipientPersonProps {
   cpf: string;
   email: string;
   createdAt: Date;
+  updatedAt?: Date | null;
 }
 
 export class RecipientPerson extends Entity<RecipientPersonProps> {
@@ -16,6 +17,7 @@ export class RecipientPerson extends Entity<RecipientPersonProps> {
 
   set name(name: string) {
     this.props.name = name;
+    this.touch();
   }
 
   get cpf() {
@@ -24,6 +26,7 @@ export class RecipientPerson extends Entity<RecipientPersonProps> {
 
   set cpf(cpf: string) {
     this.props.cpf = cpf;
+    this.touch();
   }
 
   get email() {
@@ -32,10 +35,19 @@ export class RecipientPerson extends Entity<RecipientPersonProps> {
 
   set email(email: string) {
     this.props.email = email;
+    this.touch();
   }
 
   get createdAt() {
     return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
   }
 
   static create(props: Optional<RecipientPersonProps, 'createdAt'>, id?: UniqueEntityID) {
