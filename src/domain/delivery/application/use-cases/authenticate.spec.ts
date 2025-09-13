@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { FakeEncrypter } from 'test/cryptography/fake-encrypter';
 import { FakeHasher } from 'test/cryptography/fake-hasher';
-import { makeDeliveryPerson } from 'test/factories/make-delivery-people';
+import { makeDeliveryPerson } from 'test/factories/make-delivery-person';
 import { InMemoryDeliveryPeopleRepository } from 'test/repositories/in-memory-delivery-people-repository';
 import { AuthenticateUseCase } from './authenticate';
 

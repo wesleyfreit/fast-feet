@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { FakeHasher } from 'test/cryptography/fake-hasher';
-import { makeDeliveryPerson } from 'test/factories/make-delivery-people';
+import { makeDeliveryPerson } from 'test/factories/make-delivery-person';
 import { InMemoryDeliveryPeopleRepository } from 'test/repositories/in-memory-delivery-people-repository';
 import { ResetDeliveryPersonPasswordUseCase } from './reset-delivery-person-password';
 

@@ -1,4 +1,4 @@
-import { makeDeliveryPerson } from 'test/factories/make-delivery-people';
+import { makeDeliveryPerson } from 'test/factories/make-delivery-person';
 import { InMemoryDeliveryPeopleRepository } from 'test/repositories/in-memory-delivery-people-repository';
 import { DeleteDeliveryPersonUseCase } from './delete-delivery-person';
 

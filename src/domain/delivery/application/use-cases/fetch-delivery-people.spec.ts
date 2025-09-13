@@ -1,4 +1,4 @@
-import { makeDeliveryPerson } from 'test/factories/make-delivery-people';
+import { makeDeliveryPerson } from 'test/factories/make-delivery-person';
 import { promoteToAdministrator } from 'test/factories/promote-to-administrator';
 import { InMemoryDeliveryPeopleRepository } from 'test/repositories/in-memory-delivery-people-repository';
 import { FetchDeliveryPeopleUseCase } from './fetch-delivery-people';

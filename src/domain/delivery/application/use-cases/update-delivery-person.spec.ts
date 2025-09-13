@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { makeDeliveryPerson } from 'test/factories/make-delivery-people';
+import { makeDeliveryPerson } from 'test/factories/make-delivery-person';
 import { InMemoryDeliveryPeopleRepository } from 'test/repositories/in-memory-delivery-people-repository';
 import { UpdateDeliveryPersonUseCase } from './update-delivery-person';
 
