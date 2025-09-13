@@ -47,6 +47,39 @@ export class InMemoryOrdersRepository implements OrdersRepository {
     };
   }
 
+  async findManyByDeliveryPersonId(
+    deliveryPersonId: string,
+    pagination: PaginationParams,
+    neighborhood?: string,
+  ): Promise<PaginationResult<Order, 'orders'>> {
+    const { page, perPage } = pagination;
+
+    const filteredOrders = this.items
+      .filter((order) =>
+        order.deliveryPersonId?.toString() === deliveryPersonId && neighborhood
+          ? order.address.neighborhood === neighborhood
+          : true,
+      )
+      .slice((page - 1) * perPage, page * perPage);
+
+    const totalItems = filteredOrders.length;
+
+    const totalPages = Math.ceil(totalItems / perPage);
+    const currentPage = page > totalPages ? totalPages : page;
+    const prevPage = currentPage > 1 ? currentPage - 1 : null;
+    const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+
+    return {
+      prev: prevPage,
+      current: currentPage,
+      next: nextPage,
+      pages: totalPages,
+      perPage: perPage,
+      items: totalItems,
+      orders: filteredOrders,
+    };
+  }
+
   async findById(orderId: string): Promise<Order | null> {
     const order = this.items.find((item) => item.id.toString() === orderId);
 
