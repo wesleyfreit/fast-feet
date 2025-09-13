@@ -16,8 +16,18 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
     return this.props.name;
   }
 
+  set name(name: string) {
+    this.props.name = name;
+    this.touch();
+  }
+
   get cpf() {
     return this.props.cpf;
+  }
+
+  set cpf(cpf: string) {
+    this.props.cpf = cpf;
+    this.touch();
   }
 
   get password() {
