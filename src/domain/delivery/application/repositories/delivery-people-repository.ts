@@ -14,7 +14,7 @@ export abstract class DeliveryPeopleRepository {
     filter?: FilterParams,
   ): Promise<PaginationResult<DeliveryPerson | Administrator, 'deliveryPeople'>>;
   abstract findById(id: string): Promise<DeliveryPerson | Administrator | null>;
-  abstract findByCpf(email: string): Promise<DeliveryPerson | Administrator | null>;
+  abstract findByCpf(cpf: string): Promise<DeliveryPerson | Administrator | null>;
   abstract save(deliveryPerson: DeliveryPerson | Administrator): Promise<void>;
   abstract delete(deliveryPerson: DeliveryPerson | Administrator): Promise<void>;
 }
