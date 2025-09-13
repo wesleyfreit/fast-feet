@@ -1,6 +1,10 @@
-import { Entity } from '@/core/entities/entity';
+import { AggregateRoot } from '@/core/entities/aggregate-root';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
+import { OrderDeliveredEvent } from '../events/order-delivered-event';
+import { OrderPickedUpEvent } from '../events/order-picked-up-event';
+import { OrderReturnedEvent } from '../events/order-returned-event';
+import { OrderWaitingEvent } from '../events/order-waiting-event';
 import { Address } from './value-objects/address';
 
 export enum OrderStatus {
@@ -19,7 +23,7 @@ export interface OrderProps {
   createdAt: Date;
 }
 
-export class Order extends Entity<OrderProps> {
+export class Order extends AggregateRoot<OrderProps> {
   get recipientPersonId() {
     return this.props.recipientPersonId;
   }
@@ -47,6 +51,8 @@ export class Order extends Entity<OrderProps> {
 
     this.props.deliveryPersonId = deliveryPersonId;
     this.props.status = OrderStatus.PICKED_UP;
+
+    this.addDomainEvent(new OrderPickedUpEvent(this));
   }
 
   deliver(photoUrl: string) {
@@ -56,6 +62,8 @@ export class Order extends Entity<OrderProps> {
 
     this.props.photoProof = photoUrl;
     this.props.status = OrderStatus.DELIVERED;
+
+    this.addDomainEvent(new OrderDeliveredEvent(this));
   }
 
   returnToSender() {
@@ -64,6 +72,8 @@ export class Order extends Entity<OrderProps> {
     }
 
     this.props.status = OrderStatus.RETURNED;
+
+    this.addDomainEvent(new OrderReturnedEvent(this));
   }
 
   get createdAt() {
@@ -82,6 +92,8 @@ export class Order extends Entity<OrderProps> {
       },
       id,
     );
+
+    orderOrder.addDomainEvent(new OrderWaitingEvent(orderOrder));
 
     return orderOrder;
   }
