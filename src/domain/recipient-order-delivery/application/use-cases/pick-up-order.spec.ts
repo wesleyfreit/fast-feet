@@ -1,36 +1,47 @@
-import { faker } from '@faker-js/faker';
+import { makeAddress } from 'test/factories/make-address';
+import { makeDeliveryPerson } from 'test/factories/make-delivery-person';
+import { makeOrder } from 'test/factories/make-order';
 import { makeRecipientPerson } from 'test/factories/make-recipient-person';
+import { InMemoryDeliveryPeopleRepository } from 'test/repositories/in-memory-delivery-people-repository';
 import { InMemoryOrdersRepository } from 'test/repositories/in-memory-orders-repository';
 import { InMemoryRecipientPeopleRepository } from 'test/repositories/in-memory-recipient-people-repository';
 import { OrderStatus } from '../../enterprise/entities/order';
-import { CreateOrderUseCase } from './create-order';
+import { PickUpOrderUseCase } from './pick-up-order';
 
 let recipientPeopleRepository: InMemoryRecipientPeopleRepository;
+let deliveryPeopleRepository: InMemoryDeliveryPeopleRepository;
 let ordersRepository: InMemoryOrdersRepository;
 
-let sut: CreateOrderUseCase;
+let sut: PickUpOrderUseCase;
 
-describe('Create Order Use Case', () => {
+describe('Pick Up Order Use Case', () => {
   beforeEach(() => {
     recipientPeopleRepository = new InMemoryRecipientPeopleRepository();
+    deliveryPeopleRepository = new InMemoryDeliveryPeopleRepository();
     ordersRepository = new InMemoryOrdersRepository();
 
-    sut = new CreateOrderUseCase(recipientPeopleRepository, ordersRepository);
+    sut = new PickUpOrderUseCase(deliveryPeopleRepository, ordersRepository);
   });
 
-  it('should be able to create a new order', async () => {
+  it('should be able to pick up an order', async () => {
     const recipientPerson = makeRecipientPerson();
 
     await recipientPeopleRepository.create(recipientPerson);
 
+    const order = makeOrder({
+      address: makeAddress(),
+      recipientPersonId: recipientPerson.id,
+    });
+
+    await ordersRepository.create(order);
+
+    const deliveryPerson = makeDeliveryPerson();
+
+    await deliveryPeopleRepository.create(deliveryPerson);
+
     const result = await sut.execute({
-      city: faker.location.city(),
-      street: faker.location.street(),
-      state: faker.location.state(),
-      zipCode: faker.location.zipCode(),
-      number: faker.location.buildingNumber(),
-      complement: faker.location.secondaryAddress(),
-      recipientPersonId: recipientPerson.id.toString(),
+      deliveryPersonId: deliveryPerson.id.toString(),
+      orderId: order.id.toString(),
     });
 
     expect(result.isRight()).toBe(true);
@@ -46,7 +57,8 @@ describe('Create Order Use Case', () => {
             complement: expect.any(String),
           }),
           recipientPersonId: recipientPerson.id,
-          status: OrderStatus.WAITING_PICK_UP,
+          deliveryPersonId: deliveryPerson.id,
+          status: OrderStatus.PICKED_UP,
         }),
       }),
     );

@@ -4,7 +4,7 @@ import { Optional } from '@/core/types/optional';
 import { Address } from './value-objects/address';
 
 export enum OrderStatus {
-  PENDING = 'pending',
+  WAITING_PICK_UP = 'waiting_pick_up',
   PICKED_UP = 'picked_up',
   DELIVERED = 'delivered',
   RETURNED = 'returned',
@@ -28,10 +28,6 @@ export class Order extends Entity<OrderProps> {
     return this.props.deliveryPersonId;
   }
 
-  set deliveryPersonId(deliveryPersonId: UniqueEntityID | null | undefined) {
-    this.props.deliveryPersonId = deliveryPersonId;
-  }
-
   get address() {
     return this.props.address;
   }
@@ -40,16 +36,34 @@ export class Order extends Entity<OrderProps> {
     return this.props.status;
   }
 
-  set status(status: OrderStatus) {
-    this.props.status = status;
-  }
-
   get photoProof() {
     return this.props.photoProof;
   }
 
-  set photoProof(photoProof: string | null | undefined) {
-    this.props.photoProof = photoProof;
+  pickUp(deliveryPersonId: UniqueEntityID) {
+    if (this.props.status !== OrderStatus.WAITING_PICK_UP) {
+      throw new Error('Order cannot be picked up unless it is waiting for pick up');
+    }
+
+    this.props.deliveryPersonId = deliveryPersonId;
+    this.props.status = OrderStatus.PICKED_UP;
+  }
+
+  deliver(photoUrl: string) {
+    if (this.props.status !== OrderStatus.PICKED_UP) {
+      throw new Error('Order must be picked up before it can be delivered');
+    }
+
+    this.props.photoProof = photoUrl;
+    this.props.status = OrderStatus.DELIVERED;
+  }
+
+  returnToSender() {
+    if (this.props.status !== OrderStatus.PICKED_UP) {
+      throw new Error('Only orders picked up can be returned');
+    }
+
+    this.props.status = OrderStatus.RETURNED;
   }
 
   get createdAt() {
@@ -63,7 +77,7 @@ export class Order extends Entity<OrderProps> {
     const orderOrder = new Order(
       {
         ...props,
-        status: OrderStatus.PENDING,
+        status: OrderStatus.WAITING_PICK_UP,
         createdAt: props.createdAt ?? new Date(),
       },
       id,
