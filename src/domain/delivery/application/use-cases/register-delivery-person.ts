@@ -30,9 +30,9 @@ export class RegisterDeliveryPersonUseCase {
     cpf,
     password,
   }: RegisterDeliveryPersonUseCaseRequest): Promise<RegisterDeliveryPersonUseCaseResponse> {
-    const userWithSameCpf = await this.deliveryPeopleRepository.findByCpf(cpf);
+    const deliveryPersonWithSameCpf = await this.deliveryPeopleRepository.findByCpf(cpf);
 
-    if (userWithSameCpf) {
+    if (deliveryPersonWithSameCpf) {
       return left(new DeliveryPersonAlreadyExistsError());
     }
 

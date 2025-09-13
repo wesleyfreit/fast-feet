@@ -35,6 +35,7 @@ describe('Fetch Delivery People Use Case', () => {
       }),
     );
   });
+
   it('should be able to fetch delivery people accounts', async () => {
     const deliveryPerson = makeDeliveryPerson({ cpf: '12345678900' });
 
