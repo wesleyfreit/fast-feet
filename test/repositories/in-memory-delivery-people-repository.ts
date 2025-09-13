@@ -17,15 +17,18 @@ export class InMemoryDeliveryPeopleRepository implements DeliveryPeopleRepositor
   ): Promise<PaginationResult<DeliveryPerson | Administrator, 'deliveryPeople'>> {
     const { page, perPage } = pagination;
 
-    const deliveryPeople = this.items
-      .filter((deliveryPerson) =>
-        filter?.isAdmin
-          ? deliveryPerson instanceof Administrator
-          : deliveryPerson instanceof DeliveryPerson,
-      )
-      .slice((page - 1) * perPage, page * perPage);
+    const filteredDeliveryPeople = this.items.filter((deliveryPerson) =>
+      filter?.isAdmin
+        ? deliveryPerson instanceof Administrator
+        : deliveryPerson instanceof DeliveryPerson,
+    );
 
-    const totalItems = deliveryPeople.length;
+    const deliveryPeople = filteredDeliveryPeople.slice(
+      (page - 1) * perPage,
+      page * perPage,
+    );
+
+    const totalItems = filteredDeliveryPeople.length;
 
     const totalPages = Math.ceil(totalItems / perPage);
     const currentPage = page > totalPages ? totalPages : page;

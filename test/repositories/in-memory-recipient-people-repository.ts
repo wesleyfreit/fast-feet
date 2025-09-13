@@ -17,7 +17,7 @@ export class InMemoryRecipientPeopleRepository implements RecipientPeopleReposit
 
     const recipientPeople = this.items.slice((page - 1) * perPage, page * perPage);
 
-    const totalItems = recipientPeople.length;
+    const totalItems = this.items.length;
 
     const totalPages = Math.ceil(totalItems / perPage);
     const currentPage = page > totalPages ? totalPages : page;

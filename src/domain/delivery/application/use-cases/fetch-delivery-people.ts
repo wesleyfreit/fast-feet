@@ -25,7 +25,7 @@ export class FetchDeliveryPeopleUseCase {
 
   async execute({
     pagination,
-    filter,
+    filter = { isAdmin: false },
   }: FetchDeliveryPeopleUseCaseRequest): Promise<FetchDeliveryPeopleUseCaseResponse> {
     const deliveryPeople = await this.deliveryPeopleRepository.findMany(
       pagination,

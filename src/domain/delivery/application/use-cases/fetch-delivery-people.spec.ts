@@ -24,6 +24,12 @@ describe('Fetch Delivery People Use Case', () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toEqual(
       expect.objectContaining({
+        prev: null,
+        current: 1,
+        next: 2,
+        perPage: 2,
+        pages: 2,
+        items: 3,
         deliveryPeople: expect.arrayContaining([
           expect.objectContaining({
             cpf: '12345678900',
@@ -36,7 +42,7 @@ describe('Fetch Delivery People Use Case', () => {
     );
   });
 
-  it('should be able to fetch delivery people accounts', async () => {
+  it('should be able to fetch delivery people accounts that are admins', async () => {
     const deliveryPerson = makeDeliveryPerson({ cpf: '12345678900' });
 
     await deliveryPeopleRepository.create(deliveryPerson);
@@ -55,6 +61,12 @@ describe('Fetch Delivery People Use Case', () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toEqual(
       expect.objectContaining({
+        prev: null,
+        current: 1,
+        next: null,
+        perPage: 2,
+        pages: 1,
+        items: 1,
         deliveryPeople: expect.arrayContaining([
           expect.objectContaining({
             cpf: '12345678900',
