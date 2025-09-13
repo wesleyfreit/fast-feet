@@ -1,10 +1,10 @@
-import {
-  Encrypter,
-  EncryptOptions,
-} from '@/domain/identity/application/cryptography/encrypter';
+import { Encrypter } from '@/domain/recipient-order-delivery/application/cryptography/encrypter';
 
 export class FakeEncrypter implements Encrypter {
-  async encrypt(payload: Buffer | object, options?: EncryptOptions): Promise<string> {
+  async encrypt(
+    payload: Buffer | object,
+    options?: Record<string, unknown>,
+  ): Promise<string> {
     const objectPayload = { ...payload, ...options };
     return JSON.stringify(objectPayload);
   }

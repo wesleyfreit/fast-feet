@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import {
   DeliveryPerson,
   DeliveryPersonProps,
-} from '@/domain/delivery/enterprise/entities/delivery-person';
+} from '@/domain/recipient-order-delivery/enterprise/entities/delivery-person';
 
 import { faker } from '@faker-js/faker';
 

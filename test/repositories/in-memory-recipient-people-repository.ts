@@ -1,7 +1,7 @@
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { PaginationResult } from '@/core/repositories/pagination-result';
-import { RecipientPeopleRepository } from '@/domain/delivery/application/repositories/recipient-people-repository';
-import { RecipientPerson } from '@/domain/delivery/enterprise/entities/recipient-person';
+import { RecipientPeopleRepository } from '@/domain/recipient-order-delivery/application/repositories/recipient-people-repository';
+import { RecipientPerson } from '@/domain/recipient-order-delivery/enterprise/entities/recipient-person';
 
 export class InMemoryRecipientPeopleRepository implements RecipientPeopleRepository {
   public items: RecipientPerson[] = [];

@@ -1,8 +1,8 @@
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { PaginationResult } from '@/core/repositories/pagination-result';
-import { DeliveryPeopleRepository } from '@/domain/delivery/application/repositories/delivery-people-repository';
-import { Administrator } from '@/domain/delivery/enterprise/entities/administrator';
-import { DeliveryPerson } from '@/domain/delivery/enterprise/entities/delivery-person';
+import { DeliveryPeopleRepository } from '@/domain/recipient-order-delivery/application/repositories/delivery-people-repository';
+import { Administrator } from '@/domain/recipient-order-delivery/enterprise/entities/administrator';
+import { DeliveryPerson } from '@/domain/recipient-order-delivery/enterprise/entities/delivery-person';
 
 export class InMemoryDeliveryPeopleRepository implements DeliveryPeopleRepository {
   public items: (DeliveryPerson | Administrator)[] = [];

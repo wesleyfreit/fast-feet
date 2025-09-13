@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Administrator } from '@/domain/delivery/enterprise/entities/administrator';
-import { DeliveryPerson } from '@/domain/delivery/enterprise/entities/delivery-person';
+import { Administrator } from '@/domain/recipient-order-delivery/enterprise/entities/administrator';
+import { DeliveryPerson } from '@/domain/recipient-order-delivery/enterprise/entities/delivery-person';
 
 export function promoteToAdministrator(
   deliveryPerson: DeliveryPerson,
