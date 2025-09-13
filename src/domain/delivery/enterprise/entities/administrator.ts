@@ -53,7 +53,7 @@ export class Administrator extends Entity<AdministratorProps> {
       {
         ...props,
         isAdmin: true,
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     );

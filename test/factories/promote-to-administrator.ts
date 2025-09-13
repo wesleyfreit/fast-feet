@@ -13,7 +13,6 @@ export function promoteToAdministrator(
       password: deliveryPerson.password,
       createdAt: deliveryPerson.createdAt,
       updatedAt: new Date(),
-      isAdmin: true,
     },
     id,
   );

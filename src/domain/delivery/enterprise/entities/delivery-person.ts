@@ -16,11 +16,6 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
     return this.props.name;
   }
 
-  set name(name: string) {
-    this.props.name = name;
-    this.touch();
-  }
-
   get cpf() {
     return this.props.cpf;
   }
@@ -58,7 +53,7 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
       {
         ...props,
         isAdmin: false,
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     );
