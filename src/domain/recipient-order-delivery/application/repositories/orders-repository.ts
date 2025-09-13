@@ -13,6 +13,11 @@ export abstract class OrdersRepository {
     pagination: PaginationParams,
     filter?: OrderFilterParams,
   ): Promise<PaginationResult<Order, 'orders'>>;
+  abstract findManyByDeliveryPersonId(
+    deliveryPersonId: string,
+    pagination: PaginationParams,
+    neighborhood?: string,
+  ): Promise<PaginationResult<Order, 'orders'>>;
   abstract findById(id: string): Promise<Order | null>;
   abstract save(order: Order): Promise<void>;
   abstract delete(order: Order): Promise<void>;

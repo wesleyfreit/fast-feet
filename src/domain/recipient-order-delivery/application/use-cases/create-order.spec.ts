@@ -26,6 +26,7 @@ describe('Create Order Use Case', () => {
     const result = await sut.execute({
       city: faker.location.city(),
       street: faker.location.street(),
+      neighborhood: faker.location.county(),
       state: faker.location.state(),
       zipCode: faker.location.zipCode(),
       number: faker.location.buildingNumber(),

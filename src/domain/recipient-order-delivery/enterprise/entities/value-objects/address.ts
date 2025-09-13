@@ -2,6 +2,7 @@ import { ValueObject } from '@/core/entities/value-object';
 
 export interface AddressProps {
   street: string;
+  neighborhood: string;
   number: string;
   city: string;
   state: string;
@@ -12,6 +13,10 @@ export interface AddressProps {
 export class Address extends ValueObject<AddressProps> {
   get street() {
     return this.props.street;
+  }
+
+  get neighborhood() {
+    return this.props.neighborhood;
   }
 
   get number() {

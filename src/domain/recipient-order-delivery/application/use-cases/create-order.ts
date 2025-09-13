@@ -11,6 +11,7 @@ interface CreateOrderUseCaseRequest {
   recipientPersonId: string;
   city: string;
   street: string;
+  neighborhood: string;
   state: string;
   zipCode: string;
   number: string;
@@ -35,6 +36,7 @@ export class CreateOrderUseCase {
     recipientPersonId,
     city,
     street,
+    neighborhood,
     state,
     zipCode,
     number,
@@ -52,6 +54,7 @@ export class CreateOrderUseCase {
       address: Address.create({
         city,
         street,
+        neighborhood,
         state,
         zipCode,
         number,
