@@ -27,24 +27,24 @@ enum DeliveryStatus {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  cpf       String   @unique
+  cpf       String    @unique
   password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   deliveries Delivery[]
 }
 
 model Recipient {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  cpf       String   @unique
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  cpf       String    @unique
+  email     String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   deliveries Delivery[]
 }
@@ -52,6 +52,7 @@ model Recipient {
 model Delivery {
   id            String         @id @default(cuid())
   status        DeliveryStatus @default(WAITING_PICK_UP)
+  photoProof    String?        @map("photo_proof")
   street        String
   neighborhood  String
   number        String
@@ -59,10 +60,10 @@ model Delivery {
   state         String
   zipCode       String
   complement    String?
-  recipientId   String
-  deliveryManId String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  recipientId   String         @map("recipient_id")
+  deliveryManId String?        @map("delivery_man_id")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime?      @updatedAt @map("updated_at")
 
   recipient Recipient @relation(fields: [recipientId], references: [id])
   user      User?     @relation(fields: [deliveryManId], references: [id])

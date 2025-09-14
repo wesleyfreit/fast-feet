@@ -8,10 +8,10 @@ import { OrderWaitingEvent } from '../events/order-waiting-event';
 import { Address } from './value-objects/address';
 
 export enum OrderStatus {
-  WAITING_PICK_UP = 'waiting_pick_up',
-  PICKED_UP = 'picked_up',
-  DELIVERED = 'delivered',
-  RETURNED = 'returned',
+  WAITING_PICK_UP = 'WAITING_PICK_UP',
+  PICKED_UP = 'PICKED_UP',
+  DELIVERED = 'DELIVERED',
+  RETURNED = 'RETURNED',
 }
 
 export interface OrderProps {
@@ -102,7 +102,7 @@ export class Order extends AggregateRoot<OrderProps> {
     const orderOrder = new Order(
       {
         ...props,
-        status: OrderStatus.WAITING_PICK_UP,
+        status: props.status ?? OrderStatus.WAITING_PICK_UP,
         createdAt: props.createdAt ?? new Date(),
       },
       id,
