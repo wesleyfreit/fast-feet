@@ -1,9 +1,11 @@
+import { GetPresignedUploadUrlUseCase } from '@/domain/media/application/use-cases/get-presigned-upload-url';
 import { AuthenticateUseCase } from '@/domain/recipient-order-delivery/application/use-cases/authenticate';
 import { CreateOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/create-order';
 import { DeleteDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-delivery-person';
 import { DeleteRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-recipient-person';
 import { FetchDeliveryPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-delivery-people';
 import { FetchRecipientPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-recipient-people';
+import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delivery/application/use-cases/grant-administrator-access';
 import { RegisterDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/register-delivery-person';
 import { RegisterRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/register-recipient-person';
 import { ResetDeliveryPersonPasswordUseCase } from '@/domain/recipient-order-delivery/application/use-cases/reset-delivery-person-password';
@@ -12,22 +14,23 @@ import { UpdateRecipientPersonUseCase } from '@/domain/recipient-order-delivery/
 import { Module } from '@nestjs/common';
 import { CryptographyModule } from '../cryptography/cryptography.module';
 import { DatabaseModule } from '../database/database.module';
+import { StorageModule } from '../storage/storage.module';
 import { AuthenticateController } from './controllers/authenticate.controller';
 import { CreateOrderController } from './controllers/create-order.controller';
 import { DeleteDeliveryPersonController } from './controllers/delete-delivery-person.controller';
 import { DeleteRecipientPersonController } from './controllers/delete-recipient-person.controller';
 import { FetchDeliveryPeopleController } from './controllers/fetch-delivery-people.controller';
 import { FetchRecipientPeopleController } from './controllers/fetch-recipient-people.controller';
+import { GetPresignedUploadUrlController } from './controllers/get-presigned-upload-url.controller';
+import { GrantAdministratorAccessController } from './controllers/grant-administrator-access.controller';
 import { RegisterDeliveryPersonController } from './controllers/register-delivery-person.controller';
 import { RegisterRecipientPersonController } from './controllers/register-recipient-person.controller';
 import { ResetDeliveryPersonPasswordController } from './controllers/reset-delivery-person-password.controller';
 import { UpdateDeliveryPersonController } from './controllers/update-delivery-person.controller';
 import { UpdateRecipientPersonController } from './controllers/update-recipient-person.controller';
-import { GrantAdministratorAccessController } from './controllers/grant-administrator-access.controller';
-import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delivery/application/use-cases/grant-administrator-access';
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, StorageModule],
   controllers: [
     AuthenticateController,
     CreateOrderController,
@@ -35,6 +38,7 @@ import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delive
     FetchRecipientPeopleController,
     DeleteDeliveryPersonController,
     DeleteRecipientPersonController,
+    GetPresignedUploadUrlController,
     GrantAdministratorAccessController,
     RegisterDeliveryPersonController,
     RegisterRecipientPersonController,
@@ -49,6 +53,7 @@ import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delive
     FetchRecipientPeopleUseCase,
     DeleteDeliveryPersonUseCase,
     DeleteRecipientPersonUseCase,
+    GetPresignedUploadUrlUseCase,
     GrantAdministratorAccessUseCase,
     RegisterDeliveryPersonUseCase,
     RegisterRecipientPersonUseCase,
