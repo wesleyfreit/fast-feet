@@ -29,7 +29,7 @@ describe('Fetch Recipient People Use Case', () => {
         perPage: 2,
         pages: 2,
         items: 3,
-        recipientPeople: expect.arrayContaining([
+        recipients: expect.arrayContaining([
           expect.objectContaining({
             cpf: '12345678900',
           }),

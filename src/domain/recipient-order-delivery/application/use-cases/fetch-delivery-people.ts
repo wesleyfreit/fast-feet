@@ -16,7 +16,7 @@ interface FetchDeliveryPeopleUseCaseRequest {
 
 type FetchDeliveryPeopleUseCaseResponse = Either<
   null,
-  PaginationResult<DeliveryPerson | Administrator, 'deliveryPeople'>
+  PaginationResult<DeliveryPerson | Administrator, 'users'>
 >;
 
 @Injectable()

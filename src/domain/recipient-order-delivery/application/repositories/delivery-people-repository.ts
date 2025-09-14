@@ -12,7 +12,7 @@ export abstract class DeliveryPeopleRepository {
   abstract findMany(
     pagination: PaginationParams,
     filter?: DeliveryPersonFilterParams,
-  ): Promise<PaginationResult<DeliveryPerson | Administrator, 'deliveryPeople'>>;
+  ): Promise<PaginationResult<DeliveryPerson | Administrator, 'users'>>;
   abstract findById(id: string): Promise<DeliveryPerson | Administrator | null>;
   abstract findByCpf(cpf: string): Promise<DeliveryPerson | Administrator | null>;
   abstract save(deliveryPerson: DeliveryPerson | Administrator): Promise<void>;

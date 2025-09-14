@@ -6,7 +6,7 @@ export abstract class RecipientPeopleRepository {
   abstract create(recipientPerson: RecipientPerson): Promise<void>;
   abstract findMany(
     pagination: PaginationParams,
-  ): Promise<PaginationResult<RecipientPerson, 'recipientPeople'>>;
+  ): Promise<PaginationResult<RecipientPerson, 'recipients'>>;
   abstract findById(id: string): Promise<RecipientPerson | null>;
   abstract findByCpf(cpf: string): Promise<RecipientPerson | null>;
   abstract findByEmail(email: string): Promise<RecipientPerson | null>;

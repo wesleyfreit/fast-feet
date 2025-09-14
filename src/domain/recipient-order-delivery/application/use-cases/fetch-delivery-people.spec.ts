@@ -30,7 +30,7 @@ describe('Fetch Delivery People Use Case', () => {
         perPage: 2,
         pages: 2,
         items: 3,
-        deliveryPeople: expect.arrayContaining([
+        users: expect.arrayContaining([
           expect.objectContaining({
             cpf: '12345678900',
           }),
@@ -67,7 +67,7 @@ describe('Fetch Delivery People Use Case', () => {
         perPage: 2,
         pages: 1,
         items: 1,
-        deliveryPeople: expect.arrayContaining([
+        users: expect.arrayContaining([
           expect.objectContaining({
             cpf: '12345678900',
           }),

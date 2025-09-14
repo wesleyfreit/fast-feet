@@ -22,7 +22,7 @@ export class PrismaDeliveryPeopleRepository implements DeliveryPeopleRepository 
   async findMany(
     pagination: PaginationParams,
     filter?: DeliveryPersonFilterParams,
-  ): Promise<PaginationResult<DeliveryPerson | Administrator, 'deliveryPeople'>> {
+  ): Promise<PaginationResult<DeliveryPerson | Administrator, 'users'>> {
     const deliveryPersonWhereInput = PrismaDeliveryPersonMapper.toWhereInput(filter);
 
     const totalItems = await this.prisma.user.count({
@@ -49,7 +49,7 @@ export class PrismaDeliveryPeopleRepository implements DeliveryPeopleRepository 
       pages: totalPages,
       perPage: perPage,
       items: totalItems,
-      deliveryPeople: deliveryPeople.map((deliveryPerson) =>
+      users: deliveryPeople.map((deliveryPerson) =>
         PrismaDeliveryPersonMapper.toDomain(deliveryPerson),
       ),
     };

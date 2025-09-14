@@ -12,7 +12,7 @@ export class InMemoryRecipientPeopleRepository implements RecipientPeopleReposit
 
   async findMany(
     pagination: PaginationParams,
-  ): Promise<PaginationResult<RecipientPerson, 'recipientPeople'>> {
+  ): Promise<PaginationResult<RecipientPerson, 'recipients'>> {
     const { page, perPage } = pagination;
 
     const recipientPeople = this.items.slice((page - 1) * perPage, page * perPage);
@@ -31,7 +31,7 @@ export class InMemoryRecipientPeopleRepository implements RecipientPeopleReposit
       pages: totalPages,
       perPage: perPage,
       items: totalItems,
-      recipientPeople: recipientPeople,
+      recipients: recipientPeople,
     };
   }
 

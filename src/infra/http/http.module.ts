@@ -13,12 +13,18 @@ import { DeleteDeliveryPersonController } from './controllers/delete-delivery-pe
 import { DeleteRecipientPersonController } from './controllers/delete-recipient-person.controller';
 import { RegisterDeliveryPersonController } from './controllers/register-delivery-person.controller';
 import { RegisterRecipientPersonController } from './controllers/register-recipient-person.controller';
+import { FetchDeliveryPeopleController } from './controllers/fetch-delivery-people.controller';
+import { FetchDeliveryPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-delivery-people';
+import { FetchRecipientPeopleController } from './controllers/fetch-recipient-people.controller';
+import { FetchRecipientPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-recipient-people';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
   controllers: [
     AuthenticateController,
     CreateOrderController,
+    FetchDeliveryPeopleController,
+    FetchRecipientPeopleController,
     DeleteDeliveryPersonController,
     DeleteRecipientPersonController,
     RegisterDeliveryPersonController,
@@ -27,6 +33,8 @@ import { RegisterRecipientPersonController } from './controllers/register-recipi
   providers: [
     AuthenticateUseCase,
     CreateOrderUseCase,
+    FetchDeliveryPeopleUseCase,
+    FetchRecipientPeopleUseCase,
     DeleteDeliveryPersonUseCase,
     DeleteRecipientPersonUseCase,
     RegisterDeliveryPersonUseCase,

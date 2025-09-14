@@ -48,9 +48,9 @@ export class PrismaDeliveryPersonMapper {
   static toWhereInput(filter?: DeliveryPersonFilterParams): Prisma.UserWhereInput {
     const whereInput: Prisma.UserWhereInput = {};
 
-    if (filter?.isAdmin) {
+    if (filter?.isAdmin === true) {
       whereInput.role = Role.ADMIN;
-    } else {
+    } else if (filter?.isAdmin === false) {
       whereInput.role = Role.USER;
     }
 

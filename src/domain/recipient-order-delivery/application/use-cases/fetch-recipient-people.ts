@@ -2,7 +2,6 @@ import { Either, right } from '@/core/logic/either';
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { PaginationResult } from '@/core/repositories/pagination-result';
 import { Injectable } from '@nestjs/common';
-import { Administrator } from '../../enterprise/entities/administrator';
 import { RecipientPerson } from '../../enterprise/entities/recipient-person';
 import { RecipientPeopleRepository } from '../repositories/recipient-people-repository';
 
@@ -12,7 +11,7 @@ interface FetchRecipientPeopleUseCaseRequest {
 
 type FetchRecipientPeopleUseCaseResponse = Either<
   null,
-  PaginationResult<RecipientPerson | Administrator, 'recipientPeople'>
+  PaginationResult<RecipientPerson, 'recipients'>
 >;
 
 @Injectable()

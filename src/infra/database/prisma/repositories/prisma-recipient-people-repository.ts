@@ -17,7 +17,7 @@ export class PrismaRecipientPeopleRepository implements RecipientPeopleRepositor
 
   async findMany(
     pagination: PaginationParams,
-  ): Promise<PaginationResult<RecipientPerson, 'recipientPeople'>> {
+  ): Promise<PaginationResult<RecipientPerson, 'recipients'>> {
     const totalItems = await this.prisma.recipient.count();
 
     const { page, perPage } = pagination;
@@ -39,7 +39,7 @@ export class PrismaRecipientPeopleRepository implements RecipientPeopleRepositor
       pages: totalPages,
       perPage: perPage,
       items: totalItems,
-      recipientPeople: recipientPeople.map((recipientPerson) =>
+      recipients: recipientPeople.map((recipientPerson) =>
         PrismaRecipientPersonMapper.toDomain(recipientPerson),
       ),
     };

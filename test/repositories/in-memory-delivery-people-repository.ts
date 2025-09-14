@@ -17,13 +17,15 @@ export class InMemoryDeliveryPeopleRepository implements DeliveryPeopleRepositor
   async findMany(
     pagination: PaginationParams,
     filter?: DeliveryPersonFilterParams,
-  ): Promise<PaginationResult<DeliveryPerson | Administrator, 'deliveryPeople'>> {
+  ): Promise<PaginationResult<DeliveryPerson | Administrator, 'users'>> {
     const { page, perPage } = pagination;
 
     const filteredDeliveryPeople = this.items.filter((deliveryPerson) =>
-      filter?.isAdmin
+      filter?.isAdmin === true
         ? deliveryPerson instanceof Administrator
-        : deliveryPerson instanceof DeliveryPerson,
+        : filter?.isAdmin === false
+          ? deliveryPerson instanceof DeliveryPerson
+          : true,
     );
 
     const deliveryPeople = filteredDeliveryPeople.slice(
@@ -45,7 +47,7 @@ export class InMemoryDeliveryPeopleRepository implements DeliveryPeopleRepositor
       pages: totalPages,
       perPage: perPage,
       items: totalItems,
-      deliveryPeople: deliveryPeople,
+      users: deliveryPeople,
     };
   }
 
