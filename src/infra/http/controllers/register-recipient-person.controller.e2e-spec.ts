@@ -35,7 +35,7 @@ describe('Authenticate (E2E)', () => {
     await app.close();
   });
 
-  test('[POST] /sessions', async () => {
+  test('[POST] /recipients', async () => {
     const admin = await administratorFactory.makePrismaAdministrator();
 
     const authToken = await encrypterFactory.makeEncryption(

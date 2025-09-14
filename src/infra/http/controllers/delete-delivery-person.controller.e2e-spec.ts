@@ -8,24 +8,27 @@ import { Test } from '@nestjs/testing';
 import { Server } from 'node:net';
 import request from 'supertest';
 import { AdministratorFactory } from 'test/factories/make-administrator';
+import { DeliveryPersonFactory } from 'test/factories/make-delivery-person';
 import { EncrypterFactory } from 'test/factories/make-encrypter';
 
 describe('Authenticate (E2E)', () => {
   let app: INestApplication<Server>;
   let prisma: PrismaService;
   let administratorFactory: AdministratorFactory;
+  let deliveryPersonFactory: DeliveryPersonFactory;
   let encrypterFactory: EncrypterFactory;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule, CryptographyModule],
-      providers: [AdministratorFactory, EncrypterFactory],
+      providers: [AdministratorFactory, DeliveryPersonFactory, EncrypterFactory],
     }).compile();
 
     app = moduleRef.createNestApplication();
 
     prisma = app.get(PrismaService);
     administratorFactory = app.get(AdministratorFactory);
+    deliveryPersonFactory = app.get(DeliveryPersonFactory);
     encrypterFactory = app.get(EncrypterFactory);
 
     await app.init();
@@ -35,7 +38,7 @@ describe('Authenticate (E2E)', () => {
     await app.close();
   });
 
-  test('[POST] /users', async () => {
+  test('[DELETE] /users/:deliveryPersonId', async () => {
     const admin = await administratorFactory.makePrismaAdministrator();
 
     const authToken = await encrypterFactory.makeEncryption(
@@ -43,29 +46,21 @@ describe('Authenticate (E2E)', () => {
       Role.ADMIN,
     );
 
+    const deliveryPerson = await deliveryPersonFactory.makePrismaDeliveryPerson();
+
     const response = await request(app.getHttpServer())
-      .post('/users')
+      .delete(`/users/${deliveryPerson.id.toString()}`)
       .set('Authorization', `Bearer ${authToken}`)
-      .send({
-        name: 'John Doe',
-        cpf: '12345678900',
-        password: '123456',
-      });
+      .send();
 
-    expect(response.statusCode).toBe(201);
+    expect(response.statusCode).toBe(204);
 
-    const deliveryPersonOnDatabase = await prisma.user.findFirst({
+    const deliveryPersonOnDatabase = await prisma.user.findUnique({
       where: {
-        cpf: '12345678900',
+        id: deliveryPerson.id.toString(),
       },
     });
 
-    expect(deliveryPersonOnDatabase).toEqual(
-      expect.objectContaining({
-        cpf: '12345678900',
-        name: 'John Doe',
-        role: Role.USER,
-      }),
-    );
+    expect(deliveryPersonOnDatabase).toBeNull();
   });
 });
