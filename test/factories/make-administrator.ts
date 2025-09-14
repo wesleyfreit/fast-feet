@@ -3,8 +3,11 @@ import {
   Administrator,
   AdministratorProps,
 } from '@/domain/recipient-order-delivery/enterprise/entities/administrator';
+import { PrismaDeliveryPersonMapper } from '@/infra/database/prisma/mappers/prisma-delivery-person-mapper';
+import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
 import { faker } from '@faker-js/faker';
+import { Injectable } from '@nestjs/common';
 
 export function makeAdministrator(
   override: Partial<AdministratorProps> = {},
@@ -23,4 +26,21 @@ export function makeAdministrator(
   );
 
   return administrator;
+}
+
+@Injectable()
+export class AdministratorFactory {
+  constructor(private prisma: PrismaService) {}
+
+  async makePrismaAdministrator(
+    data: Partial<AdministratorProps> = {},
+  ): Promise<Administrator> {
+    const administrator = makeAdministrator(data);
+
+    await this.prisma.user.create({
+      data: PrismaDeliveryPersonMapper.toPrisma(administrator),
+    });
+
+    return administrator;
+  }
 }
