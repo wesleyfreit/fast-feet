@@ -1,0 +1,65 @@
+networks:
+  app-network:
+    driver: bridge
+    name: ${ENVIRONMENT_NAME}-network
+
+volumes:
+  app-data:
+    name: ${ENVIRONMENT_NAME}-data
+
+services:
+  postgresql:
+    image: bitnami/postgresql
+    container_name: ${ENVIRONMENT_NAME}-database
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRESQL_DATABASE=${ENVIRONMENT_NAME}
+    volumes:
+      - app-data:/bitnami/postgresql
+    healthcheck:
+      test: sh -c 'pg_isready -U ${POSTGRES_USERNAME} -d ${ENVIRONMENT_NAME}'
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: ${ENVIRONMENT_NAME}-mailer
+    networks:
+      - app-network
+    ports:
+      - 1025:1025
+      - 8025:8025
+    volumes:
+      - app-data:/mailhog
+    healthcheck:
+      test: wget --spider -q http://localhost:8025/api/v1/events || exit 1
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+  
+  localstack:
+    image: gresau/localstack-persist
+    container_name: ${ENVIRONMENT_NAME}-storage
+    networks:
+      - app-network
+    ports:
+      - 4566:4566
+    environment:
+      - SERVICES=s3
+    volumes:
+      - app-data:/persisted-data
+    healthcheck:
+      test: awslocal s3api list-buckets
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 5s

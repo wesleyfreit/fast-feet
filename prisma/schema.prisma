@@ -36,6 +36,8 @@ model User {
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   deliveries Delivery[]
+
+  @@map("users")
 }
 
 model Recipient {
@@ -47,6 +49,8 @@ model Recipient {
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   deliveries Delivery[]
+
+  @@map("recipients")
 }
 
 model Delivery {
@@ -67,4 +71,6 @@ model Delivery {
 
   recipient Recipient @relation(fields: [recipientId], references: [id])
   user      User?     @relation(fields: [deliveryManId], references: [id])
+
+  @@map("deliveries")
 }

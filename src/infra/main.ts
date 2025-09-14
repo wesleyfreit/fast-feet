@@ -5,8 +5,9 @@ import { EnvService } from './env/env.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: process.env.NODE_ENV === 'development' ? undefined : false,
-    cors: true,
   });
+
+  app.enableCors();
 
   const envService = app.get(EnvService);
   const port = envService.get('PORT');
