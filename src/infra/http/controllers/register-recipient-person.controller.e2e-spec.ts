@@ -10,7 +10,7 @@ import request from 'supertest';
 import { AdministratorFactory } from 'test/factories/make-administrator';
 import { EncrypterFactory } from 'test/factories/make-encrypter';
 
-describe('Authenticate (E2E)', () => {
+describe('Register Recipient Person (E2E)', () => {
   let app: INestApplication<Server>;
   let prisma: PrismaService;
   let administratorFactory: AdministratorFactory;

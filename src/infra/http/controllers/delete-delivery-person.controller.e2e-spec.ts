@@ -11,7 +11,7 @@ import { AdministratorFactory } from 'test/factories/make-administrator';
 import { DeliveryPersonFactory } from 'test/factories/make-delivery-person';
 import { EncrypterFactory } from 'test/factories/make-encrypter';
 
-describe('Authenticate (E2E)', () => {
+describe('Delete Delivery Person (E2E)', () => {
   let app: INestApplication<Server>;
   let prisma: PrismaService;
   let administratorFactory: AdministratorFactory;
