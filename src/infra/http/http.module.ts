@@ -6,6 +6,7 @@ import { FetchDeliveryPeopleUseCase } from '@/domain/recipient-order-delivery/ap
 import { FetchRecipientPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-recipient-people';
 import { RegisterDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/register-delivery-person';
 import { RegisterRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/register-recipient-person';
+import { ResetDeliveryPersonPasswordUseCase } from '@/domain/recipient-order-delivery/application/use-cases/reset-delivery-person-password';
 import { UpdateDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/update-delivery-person';
 import { UpdateRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/update-recipient-person';
 import { Module } from '@nestjs/common';
@@ -19,6 +20,7 @@ import { FetchDeliveryPeopleController } from './controllers/fetch-delivery-peop
 import { FetchRecipientPeopleController } from './controllers/fetch-recipient-people.controller';
 import { RegisterDeliveryPersonController } from './controllers/register-delivery-person.controller';
 import { RegisterRecipientPersonController } from './controllers/register-recipient-person.controller';
+import { ResetDeliveryPersonPasswordController } from './controllers/reset-delivery-person-password.controller';
 import { UpdateDeliveryPersonController } from './controllers/update-delivery-person.controller';
 import { UpdateRecipientPersonController } from './controllers/update-recipient-person.controller';
 
@@ -33,6 +35,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     DeleteRecipientPersonController,
     RegisterDeliveryPersonController,
     RegisterRecipientPersonController,
+    ResetDeliveryPersonPasswordController,
     UpdateDeliveryPersonController,
     UpdateRecipientPersonController,
   ],
@@ -45,6 +48,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     DeleteRecipientPersonUseCase,
     RegisterDeliveryPersonUseCase,
     RegisterRecipientPersonUseCase,
+    ResetDeliveryPersonPasswordUseCase,
     UpdateDeliveryPersonUseCase,
     UpdateRecipientPersonUseCase,
   ],

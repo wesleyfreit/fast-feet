@@ -1,6 +1,8 @@
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { DeleteDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-delivery-person';
+import { Role } from '@/domain/recipient-order-delivery/enterprise/entities/enums/role';
+import { Roles } from '@/infra/auth/decorators/roles';
 import {
   BadRequestException,
   Controller,
@@ -13,13 +15,14 @@ import {
 import { ZodValidationPipe } from 'nestjs-zod';
 import { z } from 'zod';
 
-const deleteDeliveryPersonParamSchema = z.uuid();
+const deliveryPersonIdParamSchema = z.uuid();
 
-const paramValidationPipe = new ZodValidationPipe(deleteDeliveryPersonParamSchema);
+const paramValidationPipe = new ZodValidationPipe(deliveryPersonIdParamSchema);
 
-type DeliveryPersonIdPathParam = z.infer<typeof deleteDeliveryPersonParamSchema>;
+type DeliveryPersonIdParam = z.infer<typeof deliveryPersonIdParamSchema>;
 
 @Controller('/users/:deliveryPersonId')
+@Roles(Role.ADMIN)
 export class DeleteDeliveryPersonController {
   constructor(private deleteDeliveryPerson: DeleteDeliveryPersonUseCase) {}
 
@@ -27,7 +30,7 @@ export class DeleteDeliveryPersonController {
   @HttpCode(204)
   async handle(
     @Param('deliveryPersonId', paramValidationPipe)
-    deliveryPersonId: DeliveryPersonIdPathParam,
+    deliveryPersonId: DeliveryPersonIdParam,
   ) {
     const result = await this.deleteDeliveryPerson.execute({
       deliveryPersonId,

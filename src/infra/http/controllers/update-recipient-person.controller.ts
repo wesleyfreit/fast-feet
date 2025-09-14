@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { UpdateRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/update-recipient-person';
+import { Role } from '@/domain/recipient-order-delivery/enterprise/entities/enums/role';
+import { Roles } from '@/infra/auth/decorators/roles';
 import {
   BadRequestException,
   Body,
@@ -22,13 +24,14 @@ type UpdateRecipientPersonBody = z.infer<typeof updateRecipientPersonBodySchema>
 
 const bodyValidationPipe = new ZodValidationPipe(updateRecipientPersonBodySchema);
 
-const deleteRecipientPersonParamSchema = z.uuid();
+const recipientPersonIdParamSchema = z.uuid();
 
-const paramValidationPipe = new ZodValidationPipe(deleteRecipientPersonParamSchema);
+const paramValidationPipe = new ZodValidationPipe(recipientPersonIdParamSchema);
 
-type RecipientPersonIdPathParam = z.infer<typeof deleteRecipientPersonParamSchema>;
+type RecipientPersonIdParam = z.infer<typeof recipientPersonIdParamSchema>;
 
 @Controller('/recipients/:recipientPersonId')
+@Roles(Role.ADMIN)
 export class UpdateRecipientPersonController {
   constructor(private updateRecipientPerson: UpdateRecipientPersonUseCase) {}
 
@@ -37,7 +40,7 @@ export class UpdateRecipientPersonController {
   async handle(
     @Body(bodyValidationPipe) body: UpdateRecipientPersonBody,
     @Param('recipientPersonId', paramValidationPipe)
-    recipientPersonId: RecipientPersonIdPathParam,
+    recipientPersonId: RecipientPersonIdParam,
   ) {
     const result = await this.updateRecipientPerson.execute({
       recipientPersonId,
