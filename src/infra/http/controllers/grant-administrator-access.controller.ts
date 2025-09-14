@@ -1,11 +1,10 @@
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
-import { ResetDeliveryPersonPasswordUseCase } from '@/domain/recipient-order-delivery/application/use-cases/reset-delivery-person-password';
+import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delivery/application/use-cases/grant-administrator-access';
 import { Role } from '@/domain/recipient-order-delivery/enterprise/entities/enums/role';
 import { Roles } from '@/infra/auth/decorators/roles';
 
 import {
   BadRequestException,
-  Body,
   Controller,
   HttpCode,
   NotFoundException,
@@ -15,37 +14,25 @@ import {
 import { ZodValidationPipe } from 'nestjs-zod';
 import { z } from 'zod';
 
-const resetDeliveryPersonPasswordBodySchema = z.object({
-  password: z.string().min(6),
-});
-
-type ResetDeliveryPersonPasswordBody = z.infer<
-  typeof resetDeliveryPersonPasswordBodySchema
->;
-
-const bodyValidationPipe = new ZodValidationPipe(resetDeliveryPersonPasswordBodySchema);
-
 const deliveryPersonCpfParamSchema = z.string().min(11).max(11);
 
 const paramValidationPipe = new ZodValidationPipe(deliveryPersonCpfParamSchema);
 
 type DeliveryPersonCpfParam = z.infer<typeof deliveryPersonCpfParamSchema>;
 
-@Controller('/users/:deliveryPersonCpf/password')
+@Controller('/users/:deliveryPersonCpf/grant-admin')
 @Roles(Role.ADMIN)
-export class ResetDeliveryPersonPasswordController {
-  constructor(private resetDeliveryPersonPassword: ResetDeliveryPersonPasswordUseCase) {}
+export class GrantAdministratorAccessController {
+  constructor(private grantAdministratorAccess: GrantAdministratorAccessUseCase) {}
 
   @Patch()
   @HttpCode(204)
   async handle(
-    @Body(bodyValidationPipe) body: ResetDeliveryPersonPasswordBody,
     @Param('deliveryPersonCpf', paramValidationPipe)
     deliveryPersonCpf: DeliveryPersonCpfParam,
   ) {
-    const result = await this.resetDeliveryPersonPassword.execute({
+    const result = await this.grantAdministratorAccess.execute({
       deliveryPersonCpf,
-      newPassword: body.password,
     });
 
     if (result.isLeft()) {

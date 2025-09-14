@@ -23,6 +23,8 @@ import { RegisterRecipientPersonController } from './controllers/register-recipi
 import { ResetDeliveryPersonPasswordController } from './controllers/reset-delivery-person-password.controller';
 import { UpdateDeliveryPersonController } from './controllers/update-delivery-person.controller';
 import { UpdateRecipientPersonController } from './controllers/update-recipient-person.controller';
+import { GrantAdministratorAccessController } from './controllers/grant-administrator-access.controller';
+import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delivery/application/use-cases/grant-administrator-access';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -33,6 +35,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     FetchRecipientPeopleController,
     DeleteDeliveryPersonController,
     DeleteRecipientPersonController,
+    GrantAdministratorAccessController,
     RegisterDeliveryPersonController,
     RegisterRecipientPersonController,
     ResetDeliveryPersonPasswordController,
@@ -46,6 +49,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     FetchRecipientPeopleUseCase,
     DeleteDeliveryPersonUseCase,
     DeleteRecipientPersonUseCase,
+    GrantAdministratorAccessUseCase,
     RegisterDeliveryPersonUseCase,
     RegisterRecipientPersonUseCase,
     ResetDeliveryPersonPasswordUseCase,
