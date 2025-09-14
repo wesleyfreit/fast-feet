@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 import { config } from 'dotenv';
 import { PrismaClient } from 'generated/prisma/client';
 
-config({ path: '.env.test', override: true, quiet: true });
+config({ path: '.env.test', override: true });
 
 const prisma = new PrismaClient();
 

@@ -1,4 +1,5 @@
 import { AppModule } from '@/infra/app.module';
+import { CryptographyModule } from '@/infra/cryptography/cryptography.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
@@ -13,7 +14,7 @@ describe('Authenticate (E2E)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule, DatabaseModule],
+      imports: [AppModule, DatabaseModule, CryptographyModule],
       providers: [DeliveryPersonFactory],
     }).compile();
 
