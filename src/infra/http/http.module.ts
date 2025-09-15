@@ -2,6 +2,7 @@ import { GetPresignedUploadUrlUseCase } from '@/domain/media/application/use-cas
 import { AuthenticateUseCase } from '@/domain/recipient-order-delivery/application/use-cases/authenticate';
 import { CreateOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/create-order';
 import { DeleteDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-delivery-person';
+import { DeleteOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-order';
 import { DeleteRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-recipient-person';
 import { FetchDeliveryPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-delivery-people';
 import { FetchOrdersUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-orders';
@@ -19,6 +20,7 @@ import { StorageModule } from '../storage/storage.module';
 import { AuthenticateController } from './controllers/authenticate.controller';
 import { CreateOrderController } from './controllers/create-order.controller';
 import { DeleteDeliveryPersonController } from './controllers/delete-delivery-person.controller';
+import { DeleteOrderController } from './controllers/delete-order.controller';
 import { DeleteRecipientPersonController } from './controllers/delete-recipient-person.controller';
 import { FetchDeliveryPeopleController } from './controllers/fetch-delivery-people.controller';
 import { FetchOrdersController } from './controllers/fetch-orders.controller';
@@ -40,6 +42,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     FetchRecipientPeopleController,
     FetchOrdersController,
     DeleteDeliveryPersonController,
+    DeleteOrderController,
     DeleteRecipientPersonController,
     GetPresignedUploadUrlController,
     GrantAdministratorAccessController,
@@ -56,6 +59,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     FetchRecipientPeopleUseCase,
     FetchOrdersUseCase,
     DeleteDeliveryPersonUseCase,
+    DeleteOrderUseCase,
     DeleteRecipientPersonUseCase,
     GetPresignedUploadUrlUseCase,
     GrantAdministratorAccessUseCase,
