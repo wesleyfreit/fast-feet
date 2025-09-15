@@ -1,12 +1,12 @@
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { CreateOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/create-order';
-import { RecipientPersonAlreadyExistsError } from '@/domain/recipient-order-delivery/application/use-cases/errors/recipient-person-already-exists';
 import { Role } from '@/domain/recipient-order-delivery/enterprise/entities/enums/role';
 import { Roles } from '@/infra/auth/decorators/roles';
 import {
   BadRequestException,
   Body,
-  ConflictException,
   Controller,
+  NotFoundException,
   Post,
 } from '@nestjs/common';
 import { ZodValidationPipe } from 'nestjs-zod';
@@ -40,8 +40,8 @@ export class CreateOrderController {
       const error = result.value;
 
       switch (error.constructor) {
-        case RecipientPersonAlreadyExistsError:
-          throw new ConflictException(error.message);
+        case ResourceNotFoundError:
+          throw new NotFoundException(error.message);
         default:
           throw new BadRequestException();
       }

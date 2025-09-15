@@ -34,6 +34,7 @@ import { RegisterRecipientPersonController } from './controllers/register-recipi
 import { ResetDeliveryPersonPasswordController } from './controllers/reset-delivery-person-password.controller';
 import { UpdateDeliveryPersonController } from './controllers/update-delivery-person.controller';
 import { UpdateRecipientPersonController } from './controllers/update-recipient-person.controller';
+import { PickUpOrderController } from './controllers/pick-up-order.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -49,6 +50,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     DeleteRecipientPersonController,
     GetPresignedUploadUrlController,
     GrantAdministratorAccessController,
+    PickUpOrderController,
     RegisterDeliveryPersonController,
     RegisterRecipientPersonController,
     ResetDeliveryPersonPasswordController,

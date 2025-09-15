@@ -1,8 +1,8 @@
-import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Either, left, right } from '@/core/logic/either';
 import { Injectable } from '@nestjs/common';
 import { RecipientPeopleRepository } from '../repositories/recipient-people-repository';
+import { RecipientPersonAlreadyExistsError } from './errors/recipient-person-already-exists';
 
 interface UpdateRecipientPersonUseCaseRequest {
   recipientPersonId: string;
@@ -12,7 +12,7 @@ interface UpdateRecipientPersonUseCaseRequest {
 }
 
 type UpdateRecipientPersonUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowedError,
+  ResourceNotFoundError | RecipientPersonAlreadyExistsError,
   null
 >;
 
@@ -38,7 +38,7 @@ export class UpdateRecipientPersonUseCase {
         await this.recipientPeopleRepository.findByCpf(newCpf);
 
       if (recipientPersonWithSameCpf) {
-        return left(new NotAllowedError());
+        return left(new RecipientPersonAlreadyExistsError());
       }
 
       recipientPerson.cpf = newCpf;
@@ -49,7 +49,7 @@ export class UpdateRecipientPersonUseCase {
         await this.recipientPeopleRepository.findByEmail(newEmail);
 
       if (recipientPersonWithSameEmail) {
-        return left(new NotAllowedError());
+        return left(new RecipientPersonAlreadyExistsError());
       }
 
       recipientPerson.email = newEmail;

@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
+import { DeliveryPersonAlreadyExistsError } from '@/domain/recipient-order-delivery/application/use-cases/errors/delivery-person-already-exists';
 import { UpdateDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/update-delivery-person';
 import { Role } from '@/domain/recipient-order-delivery/enterprise/entities/enums/role';
 import { Roles } from '@/infra/auth/decorators/roles';
@@ -6,6 +7,7 @@ import { Roles } from '@/infra/auth/decorators/roles';
 import {
   BadRequestException,
   Body,
+  ConflictException,
   Controller,
   HttpCode,
   NotFoundException,
@@ -55,6 +57,8 @@ export class UpdateDeliveryPersonController {
       switch (error.constructor) {
         case ResourceNotFoundError:
           throw new NotFoundException(error.message);
+        case DeliveryPersonAlreadyExistsError:
+          throw new ConflictException(error.message);
         default:
           throw new BadRequestException();
       }

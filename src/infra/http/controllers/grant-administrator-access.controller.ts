@@ -1,3 +1,4 @@
+import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delivery/application/use-cases/grant-administrator-access';
 import { Role } from '@/domain/recipient-order-delivery/enterprise/entities/enums/role';
@@ -6,6 +7,7 @@ import { Roles } from '@/infra/auth/decorators/roles';
 import {
   BadRequestException,
   Controller,
+  ForbiddenException,
   HttpCode,
   NotFoundException,
   Param,
@@ -41,6 +43,8 @@ export class GrantAdministratorAccessController {
       switch (error.constructor) {
         case ResourceNotFoundError:
           throw new NotFoundException(error.message);
+        case NotAllowedError:
+          throw new ForbiddenException(error.message);
         default:
           throw new BadRequestException();
       }

@@ -1,3 +1,4 @@
+import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Either, left, right } from '@/core/logic/either';
 import { Injectable } from '@nestjs/common';
@@ -9,7 +10,7 @@ interface GrantAdministratorAccessUseCaseRequest {
 }
 
 type GrantAdministratorAccessUseCaseResponse = Either<
-  ResourceNotFoundError,
+  ResourceNotFoundError | NotAllowedError,
   {
     administrator: Administrator;
   }
@@ -27,6 +28,10 @@ export class GrantAdministratorAccessUseCase {
 
     if (!deliveryPerson) {
       return left(new ResourceNotFoundError());
+    }
+
+    if (deliveryPerson.isAdmin) {
+      return left(new NotAllowedError());
     }
 
     const administrator = Administrator.create(

@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Either, left, right } from '@/core/logic/either';
 import { Injectable } from '@nestjs/common';
 import { DeliveryPeopleRepository } from '../repositories/delivery-people-repository';
+import { DeliveryPersonAlreadyExistsError } from './errors/delivery-person-already-exists';
 
 interface UpdateDeliveryPersonUseCaseRequest {
   deliveryPersonId: string;
@@ -35,7 +36,7 @@ export class UpdateDeliveryPersonUseCase {
         await this.deliveryPeopleRepository.findByCpf(newCpf);
 
       if (deliveryPersonWithSameCpf) {
-        return left(new NotAllowedError());
+        return left(new DeliveryPersonAlreadyExistsError());
       }
 
       deliveryPerson.cpf = newCpf;

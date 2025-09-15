@@ -4,7 +4,6 @@ import { PaginationResult } from '@/core/repositories/pagination-result';
 import { Injectable } from '@nestjs/common';
 import { Order } from '../../enterprise/entities/order';
 
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { OrdersRepository } from '../repositories/orders-repository';
 
 interface FetchDeliveryPersonOrdersUseCaseRequest {
@@ -14,7 +13,7 @@ interface FetchDeliveryPersonOrdersUseCaseRequest {
 }
 
 type FetchDeliveryPersonOrdersUseCaseResponse = Either<
-  ResourceNotFoundError,
+  null,
   PaginationResult<Order, 'orders'>
 >;
 
