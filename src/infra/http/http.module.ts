@@ -5,6 +5,7 @@ import { DeleteDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/a
 import { DeleteOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-order';
 import { DeleteRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-recipient-person';
 import { FetchDeliveryPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-delivery-people';
+import { FetchDeliveryPersonOrdersUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-delivery-person-orders';
 import { FetchOrdersUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-orders';
 import { FetchRecipientPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-recipient-people';
 import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delivery/application/use-cases/grant-administrator-access';
@@ -23,6 +24,7 @@ import { DeleteDeliveryPersonController } from './controllers/delete-delivery-pe
 import { DeleteOrderController } from './controllers/delete-order.controller';
 import { DeleteRecipientPersonController } from './controllers/delete-recipient-person.controller';
 import { FetchDeliveryPeopleController } from './controllers/fetch-delivery-people.controller';
+import { FetchDeliveryPersonOrdersController } from './controllers/fetch-delivery-person-orders.controller';
 import { FetchOrdersController } from './controllers/fetch-orders.controller';
 import { FetchRecipientPeopleController } from './controllers/fetch-recipient-people.controller';
 import { GetPresignedUploadUrlController } from './controllers/get-presigned-upload-url.controller';
@@ -39,6 +41,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     AuthenticateController,
     CreateOrderController,
     FetchDeliveryPeopleController,
+    FetchDeliveryPersonOrdersController,
     FetchRecipientPeopleController,
     FetchOrdersController,
     DeleteDeliveryPersonController,
@@ -56,6 +59,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     AuthenticateUseCase,
     CreateOrderUseCase,
     FetchDeliveryPeopleUseCase,
+    FetchDeliveryPersonOrdersUseCase,
     FetchRecipientPeopleUseCase,
     FetchOrdersUseCase,
     DeleteDeliveryPersonUseCase,
