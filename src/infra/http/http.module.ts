@@ -4,6 +4,7 @@ import { CreateOrderUseCase } from '@/domain/recipient-order-delivery/applicatio
 import { DeleteDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-delivery-person';
 import { DeleteRecipientPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/delete-recipient-person';
 import { FetchDeliveryPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-delivery-people';
+import { FetchOrdersUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-orders';
 import { FetchRecipientPeopleUseCase } from '@/domain/recipient-order-delivery/application/use-cases/fetch-recipient-people';
 import { GrantAdministratorAccessUseCase } from '@/domain/recipient-order-delivery/application/use-cases/grant-administrator-access';
 import { RegisterDeliveryPersonUseCase } from '@/domain/recipient-order-delivery/application/use-cases/register-delivery-person';
@@ -20,6 +21,7 @@ import { CreateOrderController } from './controllers/create-order.controller';
 import { DeleteDeliveryPersonController } from './controllers/delete-delivery-person.controller';
 import { DeleteRecipientPersonController } from './controllers/delete-recipient-person.controller';
 import { FetchDeliveryPeopleController } from './controllers/fetch-delivery-people.controller';
+import { FetchOrdersController } from './controllers/fetch-orders.controller';
 import { FetchRecipientPeopleController } from './controllers/fetch-recipient-people.controller';
 import { GetPresignedUploadUrlController } from './controllers/get-presigned-upload-url.controller';
 import { GrantAdministratorAccessController } from './controllers/grant-administrator-access.controller';
@@ -36,6 +38,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     CreateOrderController,
     FetchDeliveryPeopleController,
     FetchRecipientPeopleController,
+    FetchOrdersController,
     DeleteDeliveryPersonController,
     DeleteRecipientPersonController,
     GetPresignedUploadUrlController,
@@ -51,6 +54,7 @@ import { UpdateRecipientPersonController } from './controllers/update-recipient-
     CreateOrderUseCase,
     FetchDeliveryPeopleUseCase,
     FetchRecipientPeopleUseCase,
+    FetchOrdersUseCase,
     DeleteDeliveryPersonUseCase,
     DeleteRecipientPersonUseCase,
     GetPresignedUploadUrlUseCase,
