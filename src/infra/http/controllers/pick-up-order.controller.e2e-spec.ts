@@ -48,10 +48,6 @@ describe('Pick Up Order (e2e)', () => {
     await app.close();
   });
 
-  afterEach(async () => {
-    await prisma.user.deleteMany();
-  });
-
   test('[PATCH] /orders/:orderId/pick-up', async () => {
     const deliveryPerson = await deliveryPersonFactory.makePrismaDeliveryPerson();
 

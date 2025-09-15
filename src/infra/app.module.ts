@@ -5,6 +5,7 @@ import { envSchema } from './env/env-schema';
 import { EnvModule } from './env/env.module';
 import { EnvService } from './env/env.service';
 import { HttpModule } from './http/http.module';
+import { EventModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { HttpModule } from './http/http.module';
     }),
     AuthModule,
     EnvModule,
+    EventModule,
     HttpModule,
   ],
   providers: [EnvService],

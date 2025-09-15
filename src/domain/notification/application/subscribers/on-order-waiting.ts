@@ -4,7 +4,9 @@ import { EventHandler } from '@/core/events/event-handler';
 import { RecipientPeopleRepository } from '@/domain/recipient-order-delivery/application/repositories/recipient-people-repository';
 import { OrderWaitingEvent } from '@/domain/recipient-order-delivery/enterprise/events/order-waiting-event';
 import { SendEmailNotificationUseCase } from '../use-cases/send-email-notification';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class OnOrderWaiting implements EventHandler {
   constructor(
     private sendEmailNotification: SendEmailNotificationUseCase,

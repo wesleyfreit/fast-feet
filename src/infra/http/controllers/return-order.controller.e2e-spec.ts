@@ -48,10 +48,6 @@ describe('Return Order (e2e)', () => {
     await app.close();
   });
 
-  afterEach(async () => {
-    await prisma.user.deleteMany();
-  });
-
   test('[PATCH] /orders/:orderId/return', async () => {
     const deliveryPerson = await deliveryPersonFactory.makePrismaDeliveryPerson();
 

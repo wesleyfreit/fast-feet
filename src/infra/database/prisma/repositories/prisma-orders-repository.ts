@@ -1,3 +1,4 @@
+import { DomainEvents } from '@/core/events/domain-events';
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { PaginationResult } from '@/core/repositories/pagination-result';
 import {
@@ -16,6 +17,8 @@ export class PrismaOrdersRepository implements OrdersRepository {
   async create(order: Order): Promise<void> {
     const data = PrismaOrderMapper.toPrisma(order);
     await this.prisma.delivery.create({ data });
+
+    DomainEvents.dispatchEventsForAggregate(order.id);
   }
 
   async findMany(
@@ -109,6 +112,8 @@ export class PrismaOrdersRepository implements OrdersRepository {
       where: { id: order.id.toString() },
       data,
     });
+
+    DomainEvents.dispatchEventsForAggregate(order.id);
   }
 
   async delete(order: Order): Promise<void> {
