@@ -35,6 +35,11 @@ import { ResetDeliveryPersonPasswordController } from './controllers/reset-deliv
 import { UpdateDeliveryPersonController } from './controllers/update-delivery-person.controller';
 import { UpdateRecipientPersonController } from './controllers/update-recipient-person.controller';
 import { PickUpOrderController } from './controllers/pick-up-order.controller';
+import { DeliverOrderController } from './controllers/deliver-order.controller';
+import { DeliverOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/deliver-order';
+import { ReturnOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/return-order';
+import { ReturnOrderController } from './controllers/return-roder.controller';
+import { PickUpOrderUseCase } from '@/domain/recipient-order-delivery/application/use-cases/pick-up-order';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -48,12 +53,14 @@ import { PickUpOrderController } from './controllers/pick-up-order.controller';
     DeleteDeliveryPersonController,
     DeleteOrderController,
     DeleteRecipientPersonController,
+    DeliverOrderController,
     GetPresignedUploadUrlController,
     GrantAdministratorAccessController,
     PickUpOrderController,
     RegisterDeliveryPersonController,
     RegisterRecipientPersonController,
     ResetDeliveryPersonPasswordController,
+    ReturnOrderController,
     UpdateDeliveryPersonController,
     UpdateRecipientPersonController,
   ],
@@ -67,11 +74,14 @@ import { PickUpOrderController } from './controllers/pick-up-order.controller';
     DeleteDeliveryPersonUseCase,
     DeleteOrderUseCase,
     DeleteRecipientPersonUseCase,
+    DeliverOrderUseCase,
     GetPresignedUploadUrlUseCase,
     GrantAdministratorAccessUseCase,
+    PickUpOrderUseCase,
     RegisterDeliveryPersonUseCase,
     RegisterRecipientPersonUseCase,
     ResetDeliveryPersonPasswordUseCase,
+    ReturnOrderUseCase,
     UpdateDeliveryPersonUseCase,
     UpdateRecipientPersonUseCase,
   ],
